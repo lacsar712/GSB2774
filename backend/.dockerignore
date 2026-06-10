@@ -1,0 +1,10 @@
+# 排除 target 目录，但保留 JAR 文件
+target/*
+!target/*.jar
+.mvn/
+*.iml
+.idea/
+.settings/
+.classpath
+.project
+*.log

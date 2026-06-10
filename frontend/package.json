@@ -1,0 +1,33 @@
+{
+  "name": "gym-booking-frontend",
+  "version": "1.0.0",
+  "description": "球馆预约管理系统前端",
+  "private": true,
+  "scripts": {
+    "dev": "max dev",
+    "build": "max build",
+    "test:build": "pnpm run build",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "test": "pnpm run test:build && pnpm run test:unit",
+    "postinstall": "max setup",
+    "start": "pnpm run dev"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.2.6",
+    "@ant-design/pro-components": "^2.6.43",
+    "@ant-design/pro-layout": "^7.17.16",
+    "@umijs/max": "^4.1.0",
+    "antd": "^5.12.8",
+    "dayjs": "^1.11.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "typescript": "^5.3.3",
+    "vitest": "^2.1.8"
+  }
+}

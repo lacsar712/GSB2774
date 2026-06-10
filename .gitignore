@@ -1,0 +1,35 @@
+# Backend
+backend/target/
+backend/.mvn/
+backend/*.iml
+backend/.idea/
+backend/.settings/
+backend/.classpath
+backend/.project
+backend/*.log
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.umi/
+frontend/.umi-production/
+frontend/.DS_Store
+frontend/*.log
+frontend/.env.local
+frontend/.env.*.local
+frontend/playwright-report/
+frontend/test-results/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log

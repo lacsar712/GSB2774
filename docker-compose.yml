@@ -1,0 +1,61 @@
+services:
+  # MySQL 数据库
+  mysql:
+    image: mysql:8.0
+    container_name: gym-booking-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gym_booking
+      TZ: Asia/Shanghai
+    ports:
+      - "13306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./backend/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - gym-booking-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 后端 API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: gym-booking-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/gym_booking?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "18081:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - gym-booking-network
+    restart: unless-stopped
+
+  # 前端 Nginx
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: gym-booking-frontend
+    ports:
+      - "18080:80"
+    depends_on:
+      - backend
+    networks:
+      - gym-booking-network
+    restart: unless-stopped
+
+networks:
+  gym-booking-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
